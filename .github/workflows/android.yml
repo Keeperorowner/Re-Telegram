@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew :app:assembleDebug
 
       - name: Upload Debug APK
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ReTelegram-Debug
           path: ${{github.workspace}}/app/build/outputs/apk/debug/*.apk
@@ -35,7 +35,7 @@ jobs:
         run: ./gradlew :app:assembleRelease
 
       - name: Upload Release APK
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ReTelegram-Release
           path: ${{github.workspace}}/app/build/outputs/apk/release/*.apk
