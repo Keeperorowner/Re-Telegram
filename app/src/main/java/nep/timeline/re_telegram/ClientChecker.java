@@ -25,11 +25,6 @@ public class ClientChecker {
             this.packageNames = new String[]{ packageName };
         }
 
-        ClientType(String[] packageNames)
-        {
-            this.packageNames = packageNames;
-        }
-
         public String[] getPackageNames()
         {
             return packageNames;

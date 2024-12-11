@@ -37,13 +37,8 @@ public class HookInit implements IXposedHookLoadPackage {
         return hookPackagesLocal;
     }
 
-    private boolean onlyNeedAR(String pkgName)
-    {
-        return hookPackagesCustomization.contains(pkgName);
-    }
-
     @Override
-    public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
+    public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) {
         if (getHookPackages().contains(lpparam.packageName))
         {
             if (DEBUG_MODE)
