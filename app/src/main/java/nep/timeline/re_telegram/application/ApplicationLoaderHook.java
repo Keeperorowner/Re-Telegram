@@ -2,15 +2,10 @@ package nep.timeline.re_telegram.application;
 
 import android.app.Application;
 import android.content.Context;
-import android.widget.Toast;
-
-import java.io.File;
-import java.io.IOException;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import nep.timeline.re_telegram.Utils;
-import nep.timeline.re_telegram.configs.ConfigManager;
 import nep.timeline.re_telegram.obfuscate.AutomationResolver;
 
 public class ApplicationLoaderHook {
@@ -46,7 +41,7 @@ public class ApplicationLoaderHook {
                     return;
                 }
 
-                File dir = new File(app.getFilesDir().getParentFile(), "Re-Telegram");
+/*              File dir = new File(app.getFilesDir().getParentFile(), "Re-Telegram");
                 if (!dir.exists())
                     if (!dir.mkdir())
                     {
@@ -54,28 +49,24 @@ public class ApplicationLoaderHook {
                         Utils.log("Cannot create " + dir.getAbsolutePath() + " dir, please create by yourself!");
                         return;
                     }
-                //Utils.deletedMessagesSavePath = new File(dir.getAbsolutePath() + "/deletedMessages.list");
+                Utils.deletedMessagesSavePath = new File(dir.getAbsolutePath() + "/deletedMessages.list");
                 Utils.deletedMessagesDatabasePath = new File(dir.getAbsolutePath() + "/deletedMessages.db");
                 ConfigManager.cfgPath = new File(dir.getAbsolutePath() + "/configs.cfg");
-                try
-                {
-                    if (!ConfigManager.cfgPath.exists())
-                    {
-                        ConfigManager.cfgPath.createNewFile();
-                        ConfigManager.save();
-                    }
+                        if (!ConfigManager.cfgPath.exists())
+                                    {
+                                        ConfigManager.cfgPath.createNewFile();
+                                        ConfigManager.save();
+                                    }
 
-                    //Utils.readDeletedMessages();
-                    ConfigManager.read();
-                    ConfigManager.save();
-                    HostApplicationInfo.setApplication(app);
-                }
-                catch (IOException e)
-                {
-                    Utils.log(e);
-                }
+                                    //Utils.readDeletedMessages();
+                                    ConfigManager.read();
+                                    ConfigManager.save();
+
+                 */
+                HostApplicationInfo.setApplication(app);
             }
         });
+
         initialized = true;
     }
 }

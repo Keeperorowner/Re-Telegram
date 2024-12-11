@@ -25,7 +25,6 @@ import nep.timeline.re_telegram.HookInit;
 import nep.timeline.re_telegram.Utils;
 import nep.timeline.re_telegram.application.HostApplicationInfo;
 import nep.timeline.re_telegram.base.AbstractMethodHook;
-import nep.timeline.re_telegram.configs.Configs;
 import nep.timeline.re_telegram.language.Language;
 import nep.timeline.re_telegram.obfuscate.AutomationResolver;
 import nep.timeline.re_telegram.structs.DeletedMessageInfo;
@@ -131,7 +130,7 @@ public class NEWAntiRecall {
             shouldDeletedMessageInfo.add(new DeletedMessageInfo(UserConfig.getSelectedAccount(), channelID, messageId));
         else
         {
-            if (!info.getMessageIds().contains(messageId)) // No duplication
+            if (!info.getMessageIds().contains(messageId))
                 info.insertMessageId(messageId);
         }
     }
@@ -151,7 +150,7 @@ public class NEWAntiRecall {
             shouldDeletedMessageInfo2.add(new DeletedMessageInfo(UserConfig.getSelectedAccount(), channelID, messageId));
         else
         {
-            if (!info.getMessageIds().contains(messageId)) // No duplication
+            if (!info.getMessageIds().contains(messageId))
                 info.insertMessageId(messageId);
         }
     }
@@ -177,11 +176,10 @@ public class NEWAntiRecall {
             XposedHelpers.findAndHookMethod(chatMessageCell, AutomationResolver.resolve("ChatMessageCell", "setVisibleOnScreen", AutomationResolver.ResolverType.Method), boolean.class, float.class, float.class, new AbstractMethodHook() {
                 @Override
                 protected void afterMethod(MethodHookParam param) {
-                    if (Configs.isAntiRecall()) {
                         boolean visible = (boolean) param.args[0];
                         if (visible)
                             currentMessageObject = new MessageObject(XposedHelpers.getObjectField(param.thisObject, AutomationResolver.resolve("ChatMessageCell", "currentMessageObject", AutomationResolver.ResolverType.Field)));
-                    }
+
                 }
             });
 
@@ -189,9 +187,8 @@ public class NEWAntiRecall {
                 @Override
                 protected void afterMethod(MethodHookParam param) {
                     try {
-                        if (Configs.isAntiRecall()) {
                             lastVisibleTime = System.currentTimeMillis();
-                            String text = Configs.getAntiRecallText().isEmpty() ? ("(" + Language.resolve(HostApplicationInfo.getApplication().getResources().getConfiguration().locale, "antirecall.message.deleted") + ")") : Configs.getAntiRecallText();
+                            String text = "(" + Language.resolve(HostApplicationInfo.getApplication().getResources().getConfiguration().locale, "antirecall.message.deleted") + ")";
                             Object msgObj = param.args[0];
                             if (msgObj == null)
                                 return;
@@ -202,45 +199,42 @@ public class NEWAntiRecall {
                             if (owner == null)
                                 return;
                             int flags = owner.getFlags();
-                            if ((flags & FLAG_DELETED) != 0) {
-                                if (getCurrentTimeStringClassName(param.thisObject).equals("SpannableStringBuilder")) {
-                                    NekoChatMessageCell cell = new NekoChatMessageCell(param.thisObject);
-                                    SpannableStringBuilder time = cell.getCurrentTimeString();
-                                    SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
-                                    if (Configs.isAntiRecallTextColorful())
-                                        spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.rgb(Configs.getAntiRecallTextRed(), Configs.getAntiRecallTextGreen(), Configs.getAntiRecallTextBlue())), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                    spannableStringBuilder.append(" ");
-                                    time.insert(0, spannableStringBuilder);
-                                    cell.setCurrentTimeString(time);
-                                    TextPaint paint = Theme.getTextPaint(classLoader);
-                                    if (paint != null) {
-                                        int ceil = (int) Math.ceil(paint.measureText(spannableStringBuilder, 0, spannableStringBuilder.length()));
-                                        cell.setTimeTextWidth(ceil + cell.getTimeTextWidth());
-                                        cell.setTimeWidth(ceil + cell.getTimeWidth());
-                                    }
-                                } else {
-                                    OfficialChatMessageCell cell = new OfficialChatMessageCell(param.thisObject);
-                                    SpannableStringBuilder time = convertToStringBuilder(cell.getCurrentTimeString());
-                                    if (time == null)
-                                        return;
-                                    SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
-                                    if (Configs.isAntiRecallTextColorful())
-                                        spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.rgb(Configs.getAntiRecallTextRed(), Configs.getAntiRecallTextGreen(), Configs.getAntiRecallTextBlue())), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                    spannableStringBuilder.append(" ");
-                                    time.insert(0, spannableStringBuilder);
-                                    cell.setCurrentTimeString(time);
-                                    TextPaint paint = Theme.getTextPaint(classLoader);
-                                    if (paint != null) {
-                                        int ceil = (int) Math.ceil(paint.measureText(spannableStringBuilder, 0, spannableStringBuilder.length()));
-                                        cell.setTimeTextWidth(ceil + cell.getTimeTextWidth());
-                                        cell.setTimeWidth(ceil + cell.getTimeWidth());
-                                    }
+                        if ((flags & FLAG_DELETED) != 0) {
+                            if (getCurrentTimeStringClassName(param.thisObject).equals("SpannableStringBuilder")) {
+                                NekoChatMessageCell cell = new NekoChatMessageCell(param.thisObject);
+                                SpannableStringBuilder time = cell.getCurrentTimeString();
+                                SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
+                                spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannableStringBuilder.append(" ");
+                                time.insert(0, spannableStringBuilder);
+                                cell.setCurrentTimeString(time);
+                                TextPaint paint = Theme.getTextPaint(classLoader);
+                                if (paint != null) {
+                                    int ceil = (int) Math.ceil(paint.measureText(spannableStringBuilder, 0, spannableStringBuilder.length()));
+                                    cell.setTimeTextWidth(ceil + cell.getTimeTextWidth());
+                                    cell.setTimeWidth(ceil + cell.getTimeWidth());
                                 }
                             } else {
+                                OfficialChatMessageCell cell = new OfficialChatMessageCell(param.thisObject);
+                                SpannableStringBuilder time = convertToStringBuilder(cell.getCurrentTimeString());
+                                if (time == null)
+                                    return;
+                                SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
+                                spannableStringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                spannableStringBuilder.append(" ");
+                                time.insert(0, spannableStringBuilder);
+                                cell.setCurrentTimeString(time);
+                                TextPaint paint = Theme.getTextPaint(classLoader);
+                                if (paint != null) {
+                                    int ceil = (int) Math.ceil(paint.measureText(spannableStringBuilder, 0, spannableStringBuilder.length()));
+                                    cell.setTimeTextWidth(ceil + cell.getTimeTextWidth());
+                                    cell.setTimeWidth(ceil + cell.getTimeWidth());
+                                }
+                            }
+                        } else {
                                 TextPaint paint = Theme.getTextPaint(classLoader);
                                 paint.setShadowLayer(0, 0, 0, Color.WHITE);
                             }
-                        }
                     } catch (Throwable throwable) {
                         Utils.log(throwable);
                     }
@@ -271,8 +265,6 @@ public class NEWAntiRecall {
                     @Override
                     protected void beforeMethod(MethodHookParam param) {
                         try {
-                            if (Configs.isAntiRecall())
-                            {
                                 Class<?> TL_updateDeleteMessages = XposedHelpers.findClassIfExists(AutomationResolver.resolve("org.telegram.tgnet.TLRPC$TL_updateDeleteMessages"), classLoader);
                                 Class<?> TL_updateDeleteChannelMessages = XposedHelpers.findClassIfExists(AutomationResolver.resolve("org.telegram.tgnet.TLRPC$TL_updateDeleteChannelMessages"), classLoader);
                                 CopyOnWriteArrayList<Object> updates = new CopyOnWriteArrayList<>(Utils.castList(param.args[0], Object.class));
@@ -320,8 +312,9 @@ public class NEWAntiRecall {
                                     }
                                     param.args[0] = newUpdates;
                                 }
-                            }
-                        } catch (Throwable throwable) {
+
+                        }
+                        catch (Throwable throwable) {
                             Utils.log(throwable);
                         }
                     }
@@ -341,7 +334,6 @@ public class NEWAntiRecall {
         XposedHelpers.findAndHookMethod(messagesStorage, AutomationResolver.resolve("MessagesStorage", "markMessagesAsDeletedInternal", AutomationResolver.ResolverType.Method), long.class, ArrayList.class, boolean.class, int.class, int.class, new AbstractMethodHook() {
             @Override
             protected void beforeMethod(MethodHookParam param) {
-                if (Configs.isAntiRecall()) {
                     long dialogId = (long) param.args[0];
                     if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 1500) {
                         long objectId = currentMessageObject.getDialogId();
@@ -383,14 +375,13 @@ public class NEWAntiRecall {
                         ((ArrayList<Integer>) param.args[1]).clear();
                         ((ArrayList<Integer>) param.args[1]).addAll(deletedMessages);
                     }
-                }
+
             }
         });
 
         XposedHelpers.findAndHookMethod(messagesStorage, AutomationResolver.resolve("MessagesStorage", "updateDialogsWithDeletedMessagesInternal", AutomationResolver.ResolverType.Method), long.class, long.class, ArrayList.class, ArrayList.class, new AbstractMethodHook() {
             @Override
             protected void beforeMethod(MethodHookParam param) {
-                if (Configs.isAntiRecall()) {
                     long dialogId = (long) param.args[0];
                     if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 1500) {
                         long objectId = currentMessageObject.getDialogId();
@@ -438,7 +429,7 @@ public class NEWAntiRecall {
                         ((ArrayList<Integer>) param.args[2]).clear();
                         ((ArrayList<Integer>) param.args[2]).addAll(deletedMessages);
                     }
-                }
+
             }
         });
 
@@ -457,7 +448,6 @@ public class NEWAntiRecall {
         XposedBridge.hookMethod(updateDialogsWithDeletedMessagesMethod, new AbstractMethodHook() {
             @Override
             protected void beforeMethod(MethodHookParam param) {
-                if (Configs.isAntiRecall()) {
                     long dialogId = (long) param.args[0];
                     if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 1500) {
                         long objectId = currentMessageObject.getDialogId();
@@ -506,7 +496,7 @@ public class NEWAntiRecall {
                         ((ArrayList<Integer>) param.args[2]).clear();
                         ((ArrayList<Integer>) param.args[2]).addAll(deletedMessages);
                     }
-                }
+
             }
         });
 
@@ -521,7 +511,6 @@ public class NEWAntiRecall {
             XposedBridge.hookMethod(removeDeletedMessagesFromNotifications, new AbstractMethodHook() {
                 @Override
                 protected void beforeMethod(MethodHookParam param) {
-                    if (Configs.isAntiRecall())
                         param.setResult(null);
                 }
             });

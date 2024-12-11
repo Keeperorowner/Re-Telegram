@@ -16,19 +16,13 @@ public class ClientChecker {
     public enum ClientType {
         Nekogram("tw.nekomimi.nekogram"),
         Cherrygram("uz.unnarsx.cherrygram"),
-        Yukigram("me.onlyfire.yukigram.beta"),
-        MDgram(new String[]{ "org.telegram.mdgram" });
+        Yukigram("me.onlyfire.yukigram.beta"),;
 
         final String[] packageNames;
 
         ClientType(String packageName)
         {
             this.packageNames = new String[]{ packageName };
-        }
-
-        ClientType(String[] packageNames)
-        {
-            this.packageNames = packageNames;
         }
 
         public String[] getPackageNames()
