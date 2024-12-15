@@ -13,10 +13,13 @@ Config file and other features were removed, leaving only anti recall
 ## FAQ
 
 ### Which telegram client are supported?
-Official, Plus Messenger, Nagram, Nnngram, NekoX, Nekogram (No Test Apk and Google Store Version), NekoLite, exteraGram, Forkgram, Cherrygram, OctoGram, Mercurygram
+Official, Plus Messenger, Nagram, NekoX, Nekogram (No Test Apk and Google Store Version), NekoLite, exteraGram, Forkgram, Cherrygram, Mercurygram
 
 ### Which telegram client will not be supported?
-Nullgram (You can use Nnngram), Telegram X, Forkgram F-Droid Build
+Nullgram, Telegram X, Forkgram F-Droid Build
+
+## What clients need to pull the source code and unobfuscate it to be supported?
+Nnngram， OctoGram
 
 ### What if the client i am using is not supported?
 Submit the issue and include the client download link in the content, i will try to support your client.
