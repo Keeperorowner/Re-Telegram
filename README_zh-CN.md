@@ -14,7 +14,10 @@
 Official, Plus Messenger, Nagram, Nnngram, NekoX, Nekogram ( 测试版本和谷歌商店版本除外 ), NekoLite, exteraGram, Forkgram, Cherrygram, OctoGram, Mercurygram
 
 ### 哪些电报客户端不受支持？
-Nullgram（你可以使用 Nnngram）、Telegram X、Forkgram F-Droid Build
+Nullgram, Telegram X, Forkgram F-Droid Build
+
+### 哪些客户端需要自行拉取源码取消混淆后编译才能使用本模块？
+Nnngram, Octogram
 
 ### 如果我使用的客户端不被支持怎么办？
 提交问题并在内容中包含客户下载链接，我将尽力支持您的客户端。
