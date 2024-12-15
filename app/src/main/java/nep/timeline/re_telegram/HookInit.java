@@ -20,9 +20,6 @@ public class HookInit implements IXposedHookLoadPackage {
             "org.forkclient.messenger",
             "org.forkclient.messenger.beta",
             "uz.unnarsx.cherrygram",
-            "me.onlyfire.yukigram.beta",
-            "com.iMe.android.web",
-            "com.radolyn.ayugram",
             "it.octogram.android",
             "xyz.nextalone.nnngram",
             "it.belloworld.mercurygram");
