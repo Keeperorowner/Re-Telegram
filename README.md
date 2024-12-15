@@ -18,7 +18,7 @@ Official, Plus Messenger, Nagram, NekoX, Nekogram (No Test Apk and Google Store 
 ### Which telegram client will not be supported?
 Nullgram, Telegram X, Forkgram F-Droid Build
 
-### Which telegram clients that need to pull the source code themselves, turn off obfuscate and compile before they can be supported?
+### Which telegram client that need to pull the source code themselves, turn off obfuscate and compile before they can be supported?
 Nnngram， OctoGram
 
 ### What if the client i am using is not supported?
