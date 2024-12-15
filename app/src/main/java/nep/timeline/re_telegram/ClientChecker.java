@@ -15,8 +15,7 @@ public class ClientChecker {
 
     public enum ClientType {
         Nekogram("tw.nekomimi.nekogram"),
-        Cherrygram("uz.unnarsx.cherrygram"),
-        Yukigram("me.onlyfire.yukigram.beta"),;
+        Cherrygram("uz.unnarsx.cherrygram");
 
         final String[] packageNames;
 

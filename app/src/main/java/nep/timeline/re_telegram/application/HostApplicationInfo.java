@@ -62,7 +62,5 @@ public class HostApplicationInfo {
         return sHostVersionCode;
     }
 
-    public static long getLongVersionCode() {
-        return sHostLongVersionCode;
-    }
+
 }

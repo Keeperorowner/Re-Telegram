@@ -15,7 +15,7 @@ public class Theme {
     public static TextPaint getTextPaint(ClassLoader classLoader)
     {
         Class<?> theme = XposedHelpers.findClassIfExists(AutomationResolver.resolve("org.telegram.ui.ActionBar.Theme"), classLoader);
-        if (!ClientChecker.check(ClientChecker.ClientType.Nekogram) && !ClientChecker.check(ClientChecker.ClientType.Yukigram))
+        if (!ClientChecker.check(ClientChecker.ClientType.Nekogram))
             return (TextPaint) XposedHelpers.getStaticObjectField(theme, AutomationResolver.resolve("Theme", "chat_timePaint", AutomationResolver.ResolverType.Field));
         List<Field> fields = new ArrayList<>();
         for (Field declaredField : theme.getDeclaredFields())

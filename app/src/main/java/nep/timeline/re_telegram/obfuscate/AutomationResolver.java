@@ -3,7 +3,6 @@ package nep.timeline.re_telegram.obfuscate;
 import nep.timeline.re_telegram.ClientChecker;
 import nep.timeline.re_telegram.Utils;
 import nep.timeline.re_telegram.obfuscate.resolves.Nekogram;
-import nep.timeline.re_telegram.obfuscate.resolves.Yukigram;
 
 public class AutomationResolver {
     public static String resolve(String className, String pkgName)
@@ -13,12 +12,6 @@ public class AutomationResolver {
             if (Nekogram.ClassResolver.has(className))
                 return Nekogram.ClassResolver.resolve(className);
         }
-        else if (ClientChecker.check(ClientChecker.ClientType.Yukigram, pkgName))
-        {
-            if (Yukigram.ClassResolver.has(className))
-                return Yukigram.ClassResolver.resolve(className);
-        }
-
         return className;
     }
 
@@ -37,20 +30,6 @@ public class AutomationResolver {
                     return Nekogram.MethodResolver.resolve(className, name);
             }
         }
-        else if (ClientChecker.check(ClientChecker.ClientType.Yukigram, pkgName))
-        {
-            if (type == ResolverType.Field)
-            {
-                if (Yukigram.FieldResolver.has(className, name))
-                    return Yukigram.FieldResolver.resolve(className, name);
-            }
-            else if (type == ResolverType.Method)
-            {
-                if (Yukigram.MethodResolver.has(className, name))
-                    return Yukigram.MethodResolver.resolve(className, name);
-            }
-        }
-
         return name;
     }
 

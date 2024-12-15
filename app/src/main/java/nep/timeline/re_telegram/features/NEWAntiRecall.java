@@ -173,7 +173,7 @@ public class NEWAntiRecall {
     {
         Class<?> chatMessageCell = XposedHelpers.findClassIfExists(AutomationResolver.resolve("org.telegram.ui.Cells.ChatMessageCell"), classLoader);
         if (chatMessageCell != null) {
-            XposedHelpers.findAndHookMethod(chatMessageCell, AutomationResolver.resolve("ChatMessageCell", "setVisibleOnScreen", AutomationResolver.ResolverType.Method), boolean.class, float.class, float.class, new AbstractMethodHook() {
+/*            XposedHelpers.findAndHookMethod(chatMessageCell, AutomationResolver.resolve("ChatMessageCell", "setVisibleOnScreen", AutomationResolver.ResolverType.Method), boolean.class, float.class, float.class, new AbstractMethodHook() {
                 @Override
                 protected void afterMethod(MethodHookParam param) {
                         boolean visible = (boolean) param.args[0];
@@ -182,11 +182,13 @@ public class NEWAntiRecall {
 
                 }
             });
+ */
 
             XposedHelpers.findAndHookMethod(chatMessageCell, AutomationResolver.resolve("ChatMessageCell", "measureTime", AutomationResolver.ResolverType.Method), AutomationResolver.resolve("org.telegram.messenger.MessageObject"), new AbstractMethodHook() {
                 @Override
                 protected void afterMethod(MethodHookParam param) {
                     try {
+                            currentMessageObject = new MessageObject(XposedHelpers.getObjectField(param.thisObject, AutomationResolver.resolve("ChatMessageCell", "currentMessageObject", AutomationResolver.ResolverType.Field)));
                             lastVisibleTime = System.currentTimeMillis();
                             String text = "(" + Language.resolve(HostApplicationInfo.getApplication().getResources().getConfiguration().locale, "antirecall.message.deleted") + ")";
                             Object msgObj = param.args[0];
@@ -335,7 +337,7 @@ public class NEWAntiRecall {
             @Override
             protected void beforeMethod(MethodHookParam param) {
                     long dialogId = (long) param.args[0];
-                    if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 1500) {
+                    if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 4000) {
                         long objectId = currentMessageObject.getDialogId();
                         if (objectId == dialogId)
                             return;
@@ -383,7 +385,7 @@ public class NEWAntiRecall {
             @Override
             protected void beforeMethod(MethodHookParam param) {
                     long dialogId = (long) param.args[0];
-                    if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 1500) {
+                    if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 4000) {
                         long objectId = currentMessageObject.getDialogId();
                         if (objectId == dialogId)
                             return;
@@ -449,7 +451,7 @@ public class NEWAntiRecall {
             @Override
             protected void beforeMethod(MethodHookParam param) {
                     long dialogId = (long) param.args[0];
-                    if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 1500) {
+                    if (currentMessageObject != null && (System.currentTimeMillis() - lastVisibleTime) < 4000) {
                         long objectId = currentMessageObject.getDialogId();
                         if (objectId == dialogId)
                             return;

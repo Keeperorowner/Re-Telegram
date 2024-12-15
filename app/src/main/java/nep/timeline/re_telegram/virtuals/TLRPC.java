@@ -35,7 +35,7 @@ public class TLRPC {
         {
             try
             {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
                     Field field = FieldUtils.getFieldFromMultiName(this.clazz, AutomationResolver.resolve("TLRPC$Peer", "channel_id", AutomationResolver.ResolverType.Field), long.class);
                     if (field != null)
                         return field.getLong(this.instance);
@@ -76,7 +76,7 @@ public class TLRPC {
         {
             try
             {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
                     Field field = FieldUtils.getFieldFromMultiName(this.clazz, AutomationResolver.resolve("TLRPC$Message", "id", AutomationResolver.ResolverType.Field), int.class);
                     if (field != null)
                         return field.getInt(this.instance);
@@ -95,7 +95,7 @@ public class TLRPC {
         {
             try
             {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)){
                     Field field = FieldUtils.getFieldFromMultiName(this.clazz, AutomationResolver.resolve("TLRPC$Message", "peer_id", AutomationResolver.ResolverType.Field), AutomationResolver.resolve("org.telegram.tgnet.TLRPC$Peer"));
                     if (field != null) {
                         Object peer = field.get(this.instance);
@@ -120,7 +120,7 @@ public class TLRPC {
         {
             try
             {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
                     Field field = FieldUtils.getFieldFromMultiName(this.clazz, AutomationResolver.resolve("TLRPC$Message", "flags", AutomationResolver.ResolverType.Field), int.class);
                     if (field != null)
                         return field.getInt(this.instance);
@@ -137,7 +137,7 @@ public class TLRPC {
 
         public void setFlags(int flags) {
             try {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
                     Field field = FieldUtils.getFieldFromMultiName(this.clazz, AutomationResolver.resolve("TLRPC$Message", "flags", AutomationResolver.ResolverType.Field), int.class);
                     if (field != null)
                         field.setInt(this.instance, flags);
@@ -176,7 +176,7 @@ public class TLRPC {
         {
             try
             {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
                     Field field = FieldUtils.getFieldFromMultiName(this.instance.getClass(), AutomationResolver.resolve("TLRPC$TL_updateDeleteChannelMessages", "channel_id", AutomationResolver.ResolverType.Field), long.class);
                     if (field != null)
                         return field.getLong(this.instance);
@@ -195,7 +195,7 @@ public class TLRPC {
         {
             try
             {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
                     Field field = FieldUtils.getFieldFromMultiName(this.instance.getClass(), AutomationResolver.resolve("TLRPC$TL_updateDeleteChannelMessages", "messages", AutomationResolver.ResolverType.Field), ArrayList.class);
                     if (field != null) {
                         Object messages = field.get(this.instance);
@@ -226,7 +226,7 @@ public class TLRPC {
         {
             try
             {
-                if (ClientChecker.check(ClientChecker.ClientType.Yukigram) || ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
+                if (ClientChecker.check(ClientChecker.ClientType.Nekogram)) {
                     Field field = FieldUtils.getFieldFromMultiName(this.instance.getClass(), AutomationResolver.resolve("TLRPC$TL_updateDeleteMessages", "messages", AutomationResolver.ResolverType.Field), ArrayList.class);
                     if (field != null) {
                         Object messages = field.get(this.instance);
