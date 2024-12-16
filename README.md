@@ -19,7 +19,7 @@ Official, Plus Messenger, Nagram, NekoX, Nekogram (No Test Apk and Google Store 
 Nullgram, Telegram X, Forkgram F-Droid Build
 
 ### Which telegram client that need to pull the source code themselves, turn off obfuscate and compile before they can be supported?
-Nnngram， OctoGram
+Nnngram，OctoGram
 
 ### What if the client i am using is not supported?
 Submit the issue and include the client download link in the content, i will try to support your client.
